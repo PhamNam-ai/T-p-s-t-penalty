@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+// Hướng sút và hướng cản phá
+enum huong { trai = 1, giua, phai };
+
+// Hàm kiểm tra kết quả cú sút
+bool kiemtrabanthang(int huongsut, int huongthumon) {
+    return huongsut != huongthumon;  // Nếu hướng sút khác hướng thủ môn thì vào lưới
+}
+int main() {
+    srand(time(0)); // Khởi tạo số ngẫu nhiên
+    int diem = 0; // Điểm của người chơi
+    char tieptuc;
+
+    do {
+        int huongsut, lucsut;
+        // Nhập hướng sút
+        cout << "Chọn hướng sút (1: Trái, 2: Giữa, 3: Phải): ";
+        cin >> huongsut;
+        // Kiểm tra nhập hợp lệ
+        if (huongsut < 1 || huongsut > 3) {
+            cout << "Hướng sút không hợp lệ!\n";
+            continue;
+        }
+
+        // Nhập lực sút
+        cout << "Chọn lực sút (1: Yếu, 2: Trung bình, 3: Mạnh): ";
+        cin >> lucsut;
+
+        // Thủ môn đoán hướng
+        int huongthumon = rand() % 3 + 1; 
+
+        // Kết quả
+        if (kiemtrabanthang(huongsut, huongthumon)) {
+            cout << "Bàn thắng!!!\n";
+            diem++;
+        } else {
+            cout << "Bị thủ môn cản phá!\n";
+        }
+
+        cout << "Điểm số hiện tại: " << diem << "\n";
+        cout << "Bạn có muốn sút tiếp không? (y/n): ";
+        cin >> tieptuc;
+        
+    } while (tieptuc == 'y' || tieptuc == 'Y');
+
+    cout << "Game kết thúc! Tổng điểm: " << diem << "\n";
+
+    return 0;
+}
